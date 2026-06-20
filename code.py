@@ -13,7 +13,6 @@ import digitalio
 from PIL import Image, ImageDraw, ImageFont
 from adafruit_epd.epd import Adafruit_EPD
 #from adafruit_epd.uc8179 import Adafruit_UC8179
-import datetime
 from datetime import datetime
 
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
@@ -122,7 +121,7 @@ def in_a_meeting():
     draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
 
-def status_bar(battery_level = 100, next_meeting_time = datetime.datetime(2026, 1, 1, 12, 0, 0)):
+def status_bar(battery_level = 100, next_meeting_time = datetime(2026, 1, 1, 12, 0, 0)):
     # battery_level is an integer from 0 to 100 representing the percentage of battery remaining
     # next_meeting_time is a datetime object representing the time of the next free block
 
