@@ -13,6 +13,7 @@ import digitalio
 from PIL import Image, ImageDraw, ImageFont
 from adafruit_epd.epd import Adafruit_EPD
 #from adafruit_epd.uc8179 import Adafruit_UC8179
+import datetime
 from datetime import datetime
 
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
