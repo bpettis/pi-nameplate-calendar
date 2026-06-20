@@ -68,7 +68,7 @@ draw.rectangle((0, 0, width, height), fill=WHITE)
 
 # First define some constants to allow easy resizing of shapes.
 padding = 10
-shape_width = 100
+shape_width = display.width - padding * 2
 top = padding
 bottom = height - padding
 
@@ -82,11 +82,17 @@ x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.t
 # Move left to right keeping track of the current x position for drawing shapes.
 x = padding
 # Draw a rectangle.
-draw.rectangle((x, top, x + shape_width, bottom), outline=RED, fill=RED)
+draw.rectangle((x, top, x + shape_width, top + 50), outline=RED, fill=RED)
 
-# Add some text
-draw.text((x, top), "Hello", font=font, fill=BLACK)
-draw.text((x, top + 40), "World!", font=font, fill=BLACK)
+# Put text in the rectangle, centered vertically and horizontally in the rectangle.
+status_message = "Do Not Disturb"
+draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
+
+
+
+# Add some other demo text
+draw.text((x, top + 100), "Hello", font=med_font, fill=BLACK)
+draw.text((x + 40, top + 140), "World!", font=med_font, fill=BLACK)
 
 
 
@@ -104,7 +110,7 @@ image.paste(overlay, position)
 
 # Add the "Schedule a Meeting" text just to the left of the QR code
 schedule_message = "Schedule a Meeting:"
-draw.text((display.width - overlay.width - small_font.getbbox(schedule_message)[2], display.height - (overlay.height // 2) - 2), schedule_message, font=small_font, fill=BLACK)
+draw.text((display.width - overlay.width - small_font.getbbox(schedule_message)[2], display.height - (overlay.height // 2) - 1), schedule_message, font=small_font, fill=BLACK)
 
 
 display.image(image)
