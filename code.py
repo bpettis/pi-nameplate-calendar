@@ -75,6 +75,8 @@ bottom = height - padding
 
 # Load default font.
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 40)
+med_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
 x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 10)
 
 # Move left to right keeping track of the current x position for drawing shapes.
@@ -101,7 +103,7 @@ position = (display.width - overlay.width, display.height - overlay.height)
 image.paste(overlay, position)
 
 # Add the "Schedule a Meeting" text just to the left of the QR code
-draw.text((208, display.height - overlay.height), "Schedule a Meeting:", font=x_small_font, fill=BLACK)
+draw.text((208, display.height - (overlay.height // 2)), "Schedule a Meeting:", font=small_font, fill=BLACK)
 
 
 display.image(image)
