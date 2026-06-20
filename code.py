@@ -90,11 +90,11 @@ status_message = "Do Not Disturb"
 draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
 
 # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-sub_message = "I will yap and yap given the opportunity..."
+sub_message = "I will yap and yap if given the opportunity..."
 draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
 
 # Add a small horizontal line underneath all that
-draw.line((x, top + 50 + padding + small_font.getbbox(sub_message)[3], x + shape_width, top + 50 + padding + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
+draw.line((x, top + 50 + small_font.getbbox(sub_message)[3], x + shape_width, top + 50 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
 # Add some other demo text
 draw.text((x, top + 100), "Hello", font=med_font, fill=BLACK)
@@ -109,10 +109,15 @@ battery_icon = battery_icon.resize((20, 10), Image.BICUBIC)
 image.paste(battery_icon, (1, 1))
 
 # Print Date in the top right corner of the display
-
 now = datetime.now()
 date_string = now.strftime("%B %d, %Y")
 draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
+
+# Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
+draw.rectangle((x, display.height - 50, x + shape_width, display.height - 10), outline=BLACK, fill=WHITE)
+draw.text((x, display.height - 50), "Next Availability:", font=small_font, fill=BLACK)
+draw.text((x, display.height - 30), "12:00 PM", font=small_font, fill=BLACK)
+
 
 
 # Add an image for scheduling
