@@ -70,7 +70,7 @@ draw.rectangle((0, 0, width, height), fill=WHITE)
 # First define some constants to allow easy resizing of shapes.
 padding = 10
 shape_width = display.width - padding * 2
-top = padding
+top = padding + 10
 bottom = height - padding
 
 
@@ -78,7 +78,7 @@ bottom = height - padding
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 40)
 med_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
 small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
-x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 10)
+x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 12)
 
 # Move left to right keeping track of the current x position for drawing shapes.
 x = padding
