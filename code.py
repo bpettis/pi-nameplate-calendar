@@ -86,31 +86,21 @@ draw.text((x, top), "Hello", font=font, fill=BLACK)
 draw.text((x, top + 40), "World!", font=font, fill=BLACK)
 
 
-# Add an image over everything
-overlay = Image.open("blinka.png")
-
-# Scale the image to the smaller screen dimension
-image_ratio = overlay.width / overlay.height
-screen_ratio = display.width / display.height
-print(image_ratio, screen_ratio)
-if screen_ratio < image_ratio:
-    scaled_width = overlay.width * display.height // overlay.height
-    scaled_height = display.height
-else:
-    scaled_width = display.width
-    scaled_height = overlay.height * display.width // overlay.width
+# Add the "Schedule a Meeting" text just to the left of the QR code
+draw.text((x + shape_width + 10, top), "Schedule a Meeting:", font=font, fill=BLACK)
 
 
-# Crop and center the image
-x = scaled_width // 2 - display.width // 2
-y = scaled_height // 2 - display.height // 2
-overlay = overlay.crop((x, y, x + display.width, y + display.height)).convert("RGB")
+# Add an image for scheduling
+overlay = Image.open("calendly_qr.png")
 
 
-position = (x, y)
+overlay = overlay.resize((50, 50), Image.Resampling.LANCZOS)
 
-# Paste the image over the image
-# image.paste(overlay, position)
+# Paste into the lower right corner of the display
+position = (display.width - overlay.width, display.height - overlay.height)
+image.paste(overlay, position)
+
+
 
 display.image(image)
 
