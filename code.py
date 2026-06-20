@@ -94,11 +94,11 @@ sub_message = "I will yap and yap if given the opportunity..."
 draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
 
 # Add a small horizontal line underneath all that
-draw.line((x, top + 50 + small_font.getbbox(sub_message)[3], x + shape_width, top + 100 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
+draw.line((x, top + 75 + small_font.getbbox(sub_message)[3], x + shape_width, top + 75 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
 # Add some other demo text
-draw.text((x, top + 100), "Hello", font=med_font, fill=BLACK)
-draw.text((x + 40, top + 140), "World!", font=med_font, fill=BLACK)
+draw.text((x + 250, top + 100), "Hello", font=med_font, fill=BLACK)
+draw.text((x + 250 + 40, top + 140), "World!", font=med_font, fill=BLACK)
 
 
 # Test displaying some small status indicators in the top 10 pixels of the display
