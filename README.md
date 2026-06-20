@@ -1,0 +1,18 @@
+# Pi Nameplate Calendar
+
+The pi-in-the-sky idea is to use a really low-powered Pi Zero setup to drive a small eink display that I can then mount outside my office. I'd like it to read my O365 Calendar to know what my current "status" is, and use that to display an appropriate message outside my office door, such as:
+
+- Available
+- Working Remotely
+- Do Not Disturb
+- In a Meeting
+- etc. etc.
+
+If I leave my door open all the time, I _will_ get distracted and start yapping with anyone and everyone. But simultaneously if I keep the door shut all the time I'll get sad and lonely. Maybe this can be a happy medium
+
+
+## Equipment
+
+- Raspberry Pi Zero W
+- 3.7" 416x240 Tri-Color Red / Black / White eInk - Bare Display - UC8253 Chipset (https://www.adafruit.com/product/6394)
+- Adafruit E-Ink Bonnet for Raspberry Pi - 24-pin E-Paper Displays (https://www.adafruit.com/product/6418)
