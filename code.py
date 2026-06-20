@@ -13,6 +13,7 @@ import digitalio
 from PIL import Image, ImageDraw, ImageFont
 from adafruit_epd.epd import Adafruit_EPD
 #from adafruit_epd.uc8179 import Adafruit_UC8179
+from datetime import datetime
 
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
 
@@ -88,14 +89,30 @@ draw.rectangle((x, top, x + shape_width, top + 50), outline=RED, fill=RED)
 status_message = "Do Not Disturb"
 draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
 
+# Add a small line of text below the rectangle, centered horizontally with the rectangle.
+sub_message = "I will yap and yap given the opportunity..."
+draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
 
+# Add a small horizontal line underneath all that
+draw.line((x, top + 50 + padding + small_font.getbbox(sub_message)[3], x + shape_width, top + 50 + padding + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
 # Add some other demo text
 draw.text((x, top + 100), "Hello", font=med_font, fill=BLACK)
 draw.text((x + 40, top + 140), "World!", font=med_font, fill=BLACK)
 
 
+# Test displaying some small status indicators in the top 10 pixels of the display
 
+# Battery Icon
+battery_icon = Image.open("battery.png")
+battery_icon = battery_icon.resize((20, 10), Image.BICUBIC)
+image.paste(battery_icon, (1, 1))
+
+# Print Date in the top right corner of the display
+
+now = datetime.now()
+date_string = now.strftime("%B %d, %Y")
+draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
 
 
 # Add an image for scheduling
@@ -105,12 +122,12 @@ overlay = Image.open("calendly_qr.png")
 overlay = overlay.resize((75, 75), Image.BICUBIC)
 
 # Paste into the lower right corner of the display
-position = (display.width - overlay.width, display.height - overlay.height)
+position = (display.width - overlay.width - padding, display.height - overlay.height - padding)
 image.paste(overlay, position)
 
 # Add the "Schedule a Meeting" text just to the left of the QR code
 schedule_message = "Schedule a Meeting:"
-draw.text((display.width - overlay.width - small_font.getbbox(schedule_message)[2], display.height - (overlay.height // 2) - 1), schedule_message, font=small_font, fill=BLACK)
+draw.text((display.width - overlay.width - padding - small_font.getbbox(schedule_message)[2], display.height - padding - (overlay.height // 2) - 1), schedule_message, font=small_font, fill=BLACK)
 
 
 display.image(image)
