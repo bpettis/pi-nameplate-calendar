@@ -82,39 +82,72 @@ x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.t
 
 # Move left to right keeping track of the current x position for drawing shapes.
 x = padding
-# Draw a rectangle.
-draw.rectangle((x, top, x + shape_width, top + 50), outline=RED, fill=RED)
-
-# Put text in the rectangle, centered vertically and horizontally in the rectangle.
-status_message = "Do Not Disturb"
-draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-# Add a small line of text below the rectangle, centered horizontally with the rectangle.
-sub_message = "I will yap and yap if given the opportunity..."
-draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-# Add a small horizontal line underneath all that
-draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
 
+def do_not_disturb():
 
-# Test displaying some small status indicators in the top 10 pixels of the display
+    ## DO NOT DISTURB SIGN ##
 
-# Battery Icon
-battery_icon = Image.open("battery.png")
-battery_icon = battery_icon.resize((20, 10), Image.BICUBIC)
-image.paste(battery_icon, (1, 1))
+    # Draw a rectangle.
+    draw.rectangle((x, top, x + shape_width, top + 50), outline=RED, fill=RED)
 
-# Print Date in the top right corner of the display
-now = datetime.now()
-date_string = now.strftime("%B %d, %Y")
-draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
+    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
+    status_message = "Do Not Disturb"
+    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
 
-# Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
-draw.rectangle((x + padding, display.height - 100, x + 150, display.height - 10), outline=BLACK, fill=WHITE)
-draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
-draw.text((x + padding + 5, display.height - 70), "12:00 PM", font=small_font, fill=BLACK)
+    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
+    sub_message = "I will yap and yap if given the opportunity..."
+    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
 
+    # Add a small horizontal line underneath all that
+    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
+
+
+def in_a_meeting():
+    ## IN A MEETING SIGN ##
+
+    # Draw a rectangle.
+    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
+
+    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
+    status_message = "In a Meeting"
+    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=RED)
+
+    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
+    sub_message = "Please do not disturb me unless it's an emergency."
+    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
+
+    # Add a small horizontal line underneath all that
+    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
+
+
+def status_bar(battery_level = 100, next_meeting_time = datetime.datetime(2026, 1, 1, 12, 0, 0)):
+    # battery_level is an integer from 0 to 100 representing the percentage of battery remaining
+    # next_meeting_time is a datetime object representing the time of the next free block
+
+    # Test displaying some small status indicators in the top 10 pixels of the display
+
+    if battery_level < 20:
+        # Battery Icon
+        battery_icon = Image.open("battery.png")
+        battery_icon = battery_icon.resize((20, 10), Image.BICUBIC)
+        image.paste(battery_icon, (1, 1))
+
+    # Print Date in the top right corner of the display
+    now = datetime.now()
+    date_string = now.strftime("%B %d, %Y")
+    draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
+
+    # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
+    draw.rectangle((x + padding, display.height - 100, x + 150, display.height - 10), outline=BLACK, fill=WHITE)
+    draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
+    draw.text((x + padding + 5, display.height - 70), next_meeting_time.strftime("%I:%M %p"), font=small_font, fill=BLACK)
+
+
+# Clunky way to select which message to show
+
+# do_not_disturb()
+in_a_meeting()
 
 
 # Add an image for scheduling
