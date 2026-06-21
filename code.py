@@ -293,7 +293,11 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
             break
 
 # Manually call the functions to draw the different screens
-status_bar(battery_ok=lbo.value, next_meeting_time=[datetime(2026, 1, 1, 14, 0, 0)])
+
+upcoming_meetings = []
+upcoming_meetings = [datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0), datetime(2026, 1, 1, 14, 0, 0), datetime(2026, 1, 1, 15, 0, 0)]
+
+status_bar(battery_ok=lbo.value, next_meeting_time=upcoming_meetings)
 
 # Clunky way to select which message to show -- this will eventually be done automatically after checking calendar data
 
