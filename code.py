@@ -260,13 +260,13 @@ def vacation():
     # Add a small horizontal line underneath all that
     draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
-def status_bar(battery_level = 100, next_meeting_time = datetime(2026, 1, 1, 12, 0, 0)):
-    # battery_level is an integer from 0 to 100 representing the percentage of battery remaining
+def status_bar(battery_ok = True, next_meeting_time = datetime(2026, 1, 1, 12, 0, 0)):
+    # battery_ok is a boolean representing whether the battery level is ok -- the lbo pin gets pulled low when the chip detects a low voltage, which we'll read as a low battery
     # next_meeting_time is a datetime object representing the time of the next free block
 
     # Test displaying some small status indicators in the top 10 pixels of the display
 
-    if battery_level < 20:
+    if not battery_ok:
         # Battery Icon
         battery_icon = Image.open("battery.png")
         battery_icon = battery_icon.resize((20, 10), Image.BICUBIC)
@@ -283,7 +283,7 @@ def status_bar(battery_level = 100, next_meeting_time = datetime(2026, 1, 1, 12,
     draw.text((x + padding + 5, display.height - 70), next_meeting_time.strftime("%I:%M %p"), font=small_font, fill=BLACK)
 
 # Manually call the functions to draw the different screens -- eventually this will be done automatically after checking calendar data and getting battery status from the chip
-status_bar(battery_level=15, next_meeting_time=datetime(2026, 1, 1, 14, 0, 0))
+status_bar(battery_ok=True, next_meeting_time=datetime(2026, 1, 1, 14, 0, 0))
 
 # Clunky way to select which message to show -- this will eventually be done automatically after checking calendar data
 
