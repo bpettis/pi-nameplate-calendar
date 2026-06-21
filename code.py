@@ -308,8 +308,8 @@ position = (display.width - overlay.width - padding, display.height - overlay.he
 image.paste(overlay, position)
 
 # Add the "Schedule a Meeting" text just to the left of the QR code
-schedule_message = "Schedule a\nMeeting:"
-draw.text((display.width - overlay.width - padding - small_font.getbbox(schedule_message)[2], display.height - padding - (overlay.height // 2) - 1), schedule_message, font=small_font, fill=BLACK)
+schedule_message = "Schedule\na Meeting:"
+draw.text((display.width - overlay.width - padding - 20, display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
 
 display.image(image)
