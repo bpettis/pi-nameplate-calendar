@@ -74,6 +74,8 @@ padding = 10
 shape_width = display.width - padding * 2
 top = padding + 10
 bottom = height - padding
+# Move left to right keeping track of the current x position for drawing shapes.
+x = padding
 
 
 # Load default font.
@@ -81,180 +83,18 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 40)
 med_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
 small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
 x_small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 12)
-
-# Move left to right keeping track of the current x position for drawing shapes.
-x = padding
+print("Finished setting up display and fonts")
 
 
-def do_not_disturb():
 
-    ## DO NOT DISTURB SIGN ##
-
+def display_message(status_message = "[MESSAGE HERE]", sub_message = "[SUB MESSAGE HERE]", box_color = BLACK, text_color = WHITE):
     # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=RED, fill=RED)
+    draw.rectangle((x, top, x + shape_width, top + 50), outline=box_color, fill=box_color)
 
     # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Do Not Disturb"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
+    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=text_color)
 
     # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "I will yap and yap if given the opportunity..."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-
-def in_a_meeting():
-    ## IN A MEETING SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "In a Meeting"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=RED)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "Please do not disturb me unless it's an emergency."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def available():
-    ## AVAILABLE SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Available"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "Feel free to stop by and chat!"
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def working_remotely():
-    ## WORKING REMOTELY SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Working Remotely"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "Please email me if you need anything."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-
-def out_of_office():
-    ## OUT OF OFFICE SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Out of Office"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "I may have limited access to email, but I will respond as soon as I can."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def here_but_busy():
-    ## HERE BUT BUSY SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Here, But Busy"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=RED)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "Please knock only if it's urgent."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def office_hours():
-    ## OFFICE HOURS SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Office Hours"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "Come on in! I'm here to help."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-
-def somewhere_else():
-    ## SOMEWHERE ELSE SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Somewhere Else"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "I'm not in my office right now. Please email me if you need anything."
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def teaching():
-    ## TEACHING SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "Teaching a Class"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "I'm not here right now"
-    draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
-
-    # Add a small horizontal line underneath all that
-    draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
-
-def vacation():
-    ## VACATION SIGN ##
-
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, top + 50), outline=BLACK, fill=BLACK)
-
-    # Put text in the rectangle, centered vertically and horizontally in the rectangle.
-    status_message = "On Vacation"
-    draw.text((x + (shape_width // 2) - (font.getbbox(status_message)[2] // 2), top + (50 // 2) - (font.getbbox(status_message)[3] // 2)), status_message, font=font, fill=WHITE)
-
-    # Add a small line of text below the rectangle, centered horizontally with the rectangle.
-    sub_message = "I expect to return on [return date]. Please email me if you need anything."
     draw.text((x + (shape_width // 2) - (small_font.getbbox(sub_message)[2] // 2), top + 50 + padding), sub_message, font=small_font, fill=BLACK)
 
     # Add a small horizontal line underneath all that
@@ -292,49 +132,62 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
         if i >= 3:
             break
 
-# Manually call the functions to draw the different screens
 
-upcoming_meetings = []
-upcoming_meetings = [datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0), datetime(2026, 1, 1, 14, 0, 0), datetime(2026, 1, 1, 15, 0, 0)]
+def main():
 
-status_bar(battery_ok=lbo.value, next_meeting_time=upcoming_meetings)
+    # Manually call the functions to draw the different screens
 
-# Clunky way to select which message to show -- this will eventually be done automatically after checking calendar data
+    upcoming_meetings = []
+    upcoming_meetings = [datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0), datetime(2026, 1, 1, 14, 0, 0), datetime(2026, 1, 1, 15, 0, 0)]
 
-# do_not_disturb()
-# available()
-# working_remotely()
-# out_of_office()
-here_but_busy()
-# office_hours()
-# somewhere_else()
-# teaching()
-# vacation()
-# in_a_meeting()
+    print(f"Battery OK: {lbo.value}")
+    status_bar(battery_ok=lbo.value, next_meeting_time=upcoming_meetings)
+
+    # Clunky way to select which message to show -- this will eventually be done automatically after checking calendar data
 
 
-# Add an image for scheduling
-overlay = Image.open("calendly_qr.png")
+    ''' ### Messages and Color Pairings, and sub-messages ###
+    Eventually we'll select these based on calendar data -- possibly reading from some other file that is updated by a separate script.
+
+    Do Not Disturb: Red Box, White Text, I will yap and yap if given the opportunity...
+    In a Meeting: Red Box, Black Text, Please do not disturb me unless it's an emergency.
+    Available: Black Box, White Text, Feel free to stop by and chat!
+    Working Remotely: Black Box, White Text, Please email me if you need anything.
+    Out of Office: Black Box, White Text, I may have limited access to email, but I will respond as soon as I can.
+    Here, But Busy: Red Box, White Text, Please knock only if it's urgent.
+    Office Hours: Black Box, White Text, Come on in! I'm here to help.
+    Somewhere Else: Black Box, Red Text, I'm not in my office right now. Please email me if you need anything.
+    Teaching a Class: Black Box, Red Text, I'm not here right now
+    On Vacation: Black Box, White Text, I expect to return on [return date]. Please email me if you need anything.
+
+    '''
+
+    display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
+
+    # Add an image for scheduling
+    overlay = Image.open("calendly_qr.png")
 
 
-overlay = overlay.resize((100, 100), Image.BICUBIC)
+    overlay = overlay.resize((100, 100), Image.BICUBIC)
 
-# Paste into the lower right corner of the display
-position = (display.width - overlay.width - padding, display.height - overlay.height - padding)
-image.paste(overlay, position)
+    # Paste into the lower right corner of the display
+    position = (display.width - overlay.width - padding, display.height - overlay.height - padding)
+    image.paste(overlay, position)
 
-# Add the "Schedule a Meeting" text just to the left of the QR code
-schedule_message = "Schedule\na Meeting:"
-draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
-
-
-display.image(image)
+    # Add the "Schedule a Meeting" text just to the left of the QR code
+    schedule_message = "Schedule\na Meeting:"
+    draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
 
+    # Finally, send the image to the display hardware to be shown
+    display.image(image)
 
-display.display()
+    # Tell the display to refresh
+    display.display()
 
-# Test reading the lbo pin, connected to GPIO 4
-print("LBO Pin Value: ", lbo.value)
+    
 
-print("Done!")
+if '__name__' == '__main__':
+    print("Starting main()...")
+    main()
+    print("Done!")
