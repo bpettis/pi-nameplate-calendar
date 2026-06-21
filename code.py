@@ -40,6 +40,8 @@ srcs = None
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
 
+lbo = digitalio.DigitalInOut(board.D4)
+
 
 
 display = Adafruit_UC8253_Tricolor(240, 416,
@@ -317,5 +319,8 @@ display.image(image)
 
 
 display.display()
+
+# Test reading the lbo pin, connected to GPIO 4
+print("LBO Pin Value: ", lbo.value)
 
 print("Done!")
