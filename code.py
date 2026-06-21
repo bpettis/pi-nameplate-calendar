@@ -283,12 +283,12 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
 
     # break if the next_meeting_time array is empty
     if len(next_meeting_time) == 0:
-        draw.text((x + padding + 5, display.height - 90), "-- none --", font=small_font, fill=BLACK)
-        draw.text((x + padding + 5, display.height - 80), "Use the QR code to\nschedule a\nmeeting.", font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 80), "-- none --", font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 68), "Use the QR code to\nschedule a\nmeeting.", font=small_font, fill=BLACK)
         return
 
     for i in range(len(next_meeting_time)):
-        draw.text((x + padding + 5, display.height - 90 + (i * 10)), next_meeting_time[i].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 80 + (i * 11)), next_meeting_time[i].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
         if i >= 3:
             break
 
