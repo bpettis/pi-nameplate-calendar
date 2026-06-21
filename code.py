@@ -282,8 +282,8 @@ def status_bar(battery_ok = True, next_meeting_time = datetime(2026, 1, 1, 12, 0
     draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
     draw.text((x + padding + 5, display.height - 70), next_meeting_time.strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
 
-# Manually call the functions to draw the different screens -- eventually this will be done automatically after checking calendar data and getting battery status from the chip
-status_bar(battery_ok=True, next_meeting_time=datetime(2026, 1, 1, 14, 0, 0))
+# Manually call the functions to draw the different screens
+status_bar(battery_ok=lbo.value, next_meeting_time=datetime(2026, 1, 1, 14, 0, 0))
 
 # Clunky way to select which message to show -- this will eventually be done automatically after checking calendar data
 
