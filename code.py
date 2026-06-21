@@ -278,7 +278,7 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
     draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
 
     # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
-    draw.rectangle((x + padding, display.height - 100, x + 160, display.height - 10), outline=BLACK, fill=WHITE)
+    draw.rectangle((x + padding, display.height - 100, x + 175, display.height - 10), outline=BLACK, fill=WHITE)
     draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
 
     # break if the next_meeting_time array is empty
@@ -288,7 +288,7 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
         return
 
     for i in range(len(next_meeting_time)):
-        draw.text((x + padding + 5, display.height - 80 + (i * 11)), next_meeting_time[i].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 80 + (i * 12)), next_meeting_time[i].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
         if i >= 3:
             break
 
