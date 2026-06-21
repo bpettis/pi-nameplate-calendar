@@ -274,13 +274,13 @@ def status_bar(battery_ok = True, next_meeting_time = datetime(2026, 1, 1, 12, 0
 
     # Print Date in the top right corner of the display
     now = datetime.now()
-    date_string = now.strftime("%B %d, %Y")
+    date_string = now.strftime("%A, %B %-d, %Y")
     draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
 
     # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
     draw.rectangle((x + padding, display.height - 100, x + 150, display.height - 10), outline=BLACK, fill=WHITE)
     draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
-    draw.text((x + padding + 5, display.height - 70), next_meeting_time.strftime("%I:%M %p"), font=small_font, fill=BLACK)
+    draw.text((x + padding + 5, display.height - 70), next_meeting_time.strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
 
 # Manually call the functions to draw the different screens -- eventually this will be done automatically after checking calendar data and getting battery status from the chip
 status_bar(battery_ok=True, next_meeting_time=datetime(2026, 1, 1, 14, 0, 0))
