@@ -268,12 +268,17 @@ def main():
         ip = os.popen('hostname -I').read()[:-1]
         mac = os.popen('cat /sys/class/net/wlan0/address').read()[:-1]
 
+        timestamp = 'unknown'
+        with open("last_download", "r") as f:
+            timestamp = f.read()
+
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 0), uptime, font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'Last Run: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'WiFi: {ssid}', font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 36), f'MAC: {mac}', font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 48), f'IP: {ip}', font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 60), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 72), f'Calendar Refreshed: {timestamp}', font=small_font, fill=BLACK)
 
     else:
         # Add an image for scheduling
@@ -290,11 +295,7 @@ def main():
         schedule_message = "Schedule\na Meeting:"
         draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
-    timestamp = 'unknown'
-    with open("last_download", "r") as f:
-        timestamp = f.read()
-    last_updated = 'Calendar Refreshed: ' + timestamp
-    draw.text((display.width // 2, display.height - 12), last_updated, font=x_small_font, fill=BLACK)
+    
 
     # Finally, send the image to the display hardware to be shown
     display.image(image)
