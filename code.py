@@ -175,6 +175,18 @@ def main():
     '''
 
 
+    if current_events:
+        print("Current events:\n")
+        for event, start, end in current_events:
+            print(event)
+            print("Summary:", event.get("summary"))
+            print("Location:", event.get("location"))
+            print("-" * 40)
+    else:
+        print("No events are currently in progress.")
+        # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
+        display_message(status_message="Available", sub_message="Feel free to stop by and chat!", box_color=BLACK, text_color=WHITE)
+
 
     display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
 
