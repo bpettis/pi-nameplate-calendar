@@ -10,15 +10,19 @@ print("Started!")
 import board
 import busio
 import digitalio
+import os
 from PIL import Image, ImageDraw, ImageFont
 from adafruit_epd.epd import Adafruit_EPD
-#from adafruit_epd.uc8179 import Adafruit_UC8179
 from datetime import datetime
-
+from dotenv import load_dotenv
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
 
 
 print("Finished Imports")
+
+# Load Environment Variables
+load_dotenv()
+DEBUG = True if (os.getenv("DEBUG") == "True") else False
 
 # First define some color constants
 WHITE = (0xFF, 0xFF, 0xFF)
@@ -164,19 +168,31 @@ def main():
 
     display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
 
-    # Add an image for scheduling
-    overlay = Image.open("calendly_qr.png")
+    if DEBUG:
+        print("Debug mode is on. Skipping QR code.")
+        uptime = os.popen('uptime -p').read()[:-1]
+        ssid = os.popen('iwgetid -r').read()[:-1]
+        ip = os.popen('hostname -I').read()[:-1]
+
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 0), uptime, font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'WiFi: {ssid}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'IP: {ip}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 36), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
+
+    else:
+        # Add an image for scheduling
+        overlay = Image.open("calendly_qr.png")
 
 
-    overlay = overlay.resize((100, 100), Image.BICUBIC)
+        overlay = overlay.resize((100, 100), Image.BICUBIC)
 
-    # Paste into the lower right corner of the display
-    position = (display.width - overlay.width - padding, display.height - overlay.height - padding)
-    image.paste(overlay, position)
+        # Paste into the lower right corner of the display
+        position = (display.width - overlay.width - padding, display.height - overlay.height - padding)
+        image.paste(overlay, position)
 
-    # Add the "Schedule a Meeting" text just to the left of the QR code
-    schedule_message = "Schedule\na Meeting:"
-    draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
+        # Add the "Schedule a Meeting" text just to the left of the QR code
+        schedule_message = "Schedule\na Meeting:"
+        draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
 
     # Finally, send the image to the display hardware to be shown
