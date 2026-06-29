@@ -27,6 +27,9 @@ Follow Adafruit's instructions for getting stuff setup.
 Install some stuff: 
 
 - python-dotenv
+- icalendar (https://icalendar.readthedocs.io/en/latest/how-to/install.html)
+- requests
+- tzlocal
 
 ### Environment
 
@@ -37,6 +40,7 @@ There are a handful of environment variables that you can set. I recommend makin
 | ------------- | ------------- | ------------- |
 | DEBUG  | no | Display useful information for debugging and setup instead of QR code | 
 | CALENDAR_URL  | yes | tell the script where it can get the ICS file from |
+| ICS_FILE | no | what the interim ICS file should be named |
 
 
 #### Example .env file
