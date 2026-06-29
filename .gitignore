@@ -4,3 +4,5 @@
 .env.*
 
 *.ics
+
+last_download

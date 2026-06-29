@@ -1,5 +1,6 @@
 import os, requests
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 FILENAME = os.getenv("ICS_FILE", "calendar.ics")
@@ -21,6 +22,9 @@ def main():
 
         with open(FILENAME, "w") as f:
             f.write(response.text)
+
+        with open("last_download", "w") as f:
+            f.write(datetime.now().strftime("%Y-%-m-%-d %-I:%-M%p"))
 
         print(f"Downloaded {FILENAME} from {CALENDAR_URL}")
     except Exception as e:
