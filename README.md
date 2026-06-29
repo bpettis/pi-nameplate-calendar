@@ -21,6 +21,13 @@ If I leave my door open all the time, I _will_ get distracted and start yapping 
 
 [lmao I will write this eventually... maybe]
 
+Follow Adafruit's instructions for getting stuff setup.
+
+
+Install some stuff: 
+
+- python-dotenv
+
 ### Environment
 
 There are a handful of environment variables that you can set. I recommend making a `.env` file and setting them there.
