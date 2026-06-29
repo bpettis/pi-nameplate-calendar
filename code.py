@@ -175,6 +175,14 @@ def main():
     '''
 
     state = ""
+
+
+    # Check if we are outside of business hours (9:30 AM to 4:30 PM) and if so, display "Out of Office" even if we're technically "free"
+    # But if there is an event, it can override this and display the event's state instead
+    now = datetime.now()
+    if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
+        state = "Out of Office"
+
     if current_events:
         print("Current events:\n")
         for event, start, end in current_events:
@@ -222,10 +230,7 @@ def main():
         # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
         state = "Available"
 
-    # Check if we are outside of business hours (9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
-    now = datetime.now()
-    if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
-        state = "Out of Office"
+
 
     match state:
         case "Available":
