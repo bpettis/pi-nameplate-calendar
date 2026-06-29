@@ -290,6 +290,7 @@ def main():
         schedule_message = "Schedule\na Meeting:"
         draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
+    timestamp = 'unknown'
     with open("last_download", "r") as f:
         timestamp = f.read()
     last_updated = 'Calendar Refreshed: ' + timestamp
