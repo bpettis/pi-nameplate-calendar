@@ -218,7 +218,7 @@ def main():
             display_message(status_message="Teaching a Class", sub_message="I'm not here right now.", box_color=BLACK, text_color=RED)
         case "On Vacation":
             display_message(status_message="On Vacation", sub_message="I am happy to meet when I return. Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
-        default:
+        case _:
             display_message(status_message="???", sub_message="I've lost my marbles (and may or may not be around)", box_color=BLACK, text_color=WHITE)
 
 
