@@ -36,11 +36,13 @@ Install some stuff:
 There are a handful of environment variables that you can set. I recommend making a `.env` file and setting them there.
 
 
-| Variable Name | Required? | Description |
+| Variable Name | Required? | Default | Description |
 | ------------- | ------------- | ------------- |
-| DEBUG  | no | Display useful information for debugging and setup instead of QR code | 
-| CALENDAR_URL  | yes | tell the script where it can get the ICS file from |
-| ICS_FILE | no | what the interim ICS file should be named |
+| DEBUG  | no | False | Display useful information for debugging and setup instead of QR code | 
+| CALENDAR_URL  | yes | -- | tell the script where it can get the ICS file from |
+| ICS_FILE | no | calendar.ics | what the interim ICS file should be named |
+| BUSINESS_START | no | 9:30 | always be "Out of Office" prior to this time |
+| BUSINESS_END | no | 4:30 | always be "Out of Office" after this time |
 
 
 #### Example .env file

@@ -23,6 +23,8 @@ print("Finished Imports")
 # Load Environment Variables
 load_dotenv()
 DEBUG = True if (os.getenv("DEBUG") == "True") else False
+BUSINESS_START = datetime.strptime(os.getenv("BUSINESS_START", "09:30"), "%H:%M").time()
+BUSINESS_END = datetime.strptime(os.getenv("BUSINESS_END", "16:30"), "%H:%M").time()
 
 # First define some color constants
 WHITE = (0xFF, 0xFF, 0xFF)
@@ -196,6 +198,11 @@ def main():
         print("No events are currently in progress.")
         # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
         state = "Available"
+
+    # Check if we are outside of business hours (9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
+    now = datetime.now()
+    if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
+        state = "Out of Office"
 
     match state:
         case "Available":
