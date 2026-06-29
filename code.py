@@ -166,7 +166,7 @@ def main():
     Available: Black Box, White Text, Feel free to stop by and chat!
     Working Remotely: Black Box, White Text, Please email me if you need anything.
     Out of Office: Black Box, White Text, I may have limited access to email, but I will respond as soon as I can.
-    Here, But Busy: Red Box, White Text, Please knock only if it's urgent.
+    Here, But Busy: Black Box, White Text, Please knock only if it's urgent.
     Office Hours: Black Box, White Text, Come on in! I'm here to help.
     Somewhere Else: Black Box, Red Text, I'm not in my office right now. Please email me if you need anything.
     Teaching a Class: Black Box, Red Text, I'm not here right now
@@ -184,14 +184,37 @@ def main():
             print("Description:", event.get("description"))
             print("-" * 40)
 
+            # Check the event title to see if it contains a matching string that should always be matched to a specific state
+            # For example, anything that starts with "Writing Time:" should always be matched to "Do Not Disturb" regardless of the other data in the event.
+            # Or anything that is labelled as "Office Hours" should always be matched to "Office Hours" regardless of the other data in the event.
+            # Anything labelled as "Vacation" should always be matched to "On Vacation" regardless of the other data in the event.
+            # Anything labelled with "RHCS:" should match to "Teaching a Class" regardless of the other data in the event.
+            title = event.get("summary", "").lower()
+            if title.startswith("writing time:"):
+                state = "Do Not Disturb"
+            elif title.startswith("office hours"):
+                state = "Office Hours"
+            elif title.startswith("vacation"):
+                state = "On Vacation"
+            elif title.startswith("rhcs"):
+                state = "Teaching a Class"
+
+
+            # Check the event location to see if it contains a matching string that should always be matched to a specific state
+            # For example, if there is an address in the location field that is not "my office," "ben's office", or "Weinstein 402G" or "Jepson 221", then we should display "Somewhere Else" regardless of the other data in the event.
+            location = event.get("location", "").lower()
+            if location and "my office" not in location and "ben's office" not in location and "weinstein 402g" not in location and "jepson 221" not in location:
+                state = "Somewhere Else"
+
             # Check the event description for a custom string to specify the state to display on the nameplate. If found, use that string as the state.
+            # This should be the top priority for determining the state, as it allows for manual override of the calendar data. The format should be "## NAMEPLATE_STATE: [STATE] ##" where [STATE] is one of the states listed above.
             # For example ## NAMEPLATE_STATE: Available ## would set the state to "Available" and display the appropriate message and colors on the nameplate.
             description = event.get("description", "").lower()
             if "## NAMEPLATE_STATE:" in description:
                 state_line = [line for line in description.splitlines() if "## NAMEPLATE_STATE:" in line][0]
                 state = state_line.split("## NAMEPLATE_STATE:") [1].strip()
-            else:
-                state = "In a Meeting"
+
+            
 
             # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "In a Meeting"
     else:
@@ -216,7 +239,7 @@ def main():
         case "Out of Office":
             display_message(status_message="Out of Office", sub_message="I may have limited access to email, but I will respond as soon as I can.", box_color=BLACK, text_color=WHITE)
         case "Here, But Busy":
-            display_message(status_message="Here, But Busy", sub_message="Please knock only if it's urgent.", box_color=RED, text_color=WHITE)
+            display_message(status_message="Here, But Busy", sub_message="Please knock only if it's urgent.", box_color=BLACK, text_color=WHITE)
         case "Office Hours":
             display_message(status_message="Office Hours", sub_message="Come on in! I'm here to help.", box_color=BLACK, text_color=WHITE)
         case "Somewhere Else":
