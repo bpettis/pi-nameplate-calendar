@@ -294,7 +294,7 @@ def main():
     with open("last_download", "r") as f:
         timestamp = f.read()
     last_updated = 'Calendar Refreshed: ' + timestamp
-    draw.text((display.width - 40, display.height - 12), last_updated, font=x_small_font, fill=BLACK)
+    draw.text((display.width // 2, display.height - 12), last_updated, font=x_small_font, fill=BLACK)
 
     # Finally, send the image to the display hardware to be shown
     display.image(image)
