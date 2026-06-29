@@ -200,6 +200,8 @@ def main():
                 state = "On Vacation"
             elif title.startswith("rhcs"):
                 state = "Teaching a Class"
+            elif title.startswith("working remotely"):
+                state = "Working Remotely"
 
 
             # Check the event location to see if it contains a matching string that should always be matched to a specific state
@@ -221,12 +223,15 @@ def main():
             # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "In a Meeting"
     else:
         print("No events are currently in progress.")
-        # Check if we are outside of business hours (9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
+        state = "Available"
+
+        
+        # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
         now = datetime.now()
         if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
             state = "Out of Office"
         # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
-        state = "Available"
+        
 
 
 
@@ -254,7 +259,7 @@ def main():
         case _:
             display_message(status_message="???", sub_message="I've lost my marbles (and may or may not be around)", box_color=BLACK, text_color=WHITE)
 
-
+    print(f'State: {state}')
 
     if DEBUG:
         print("Debug mode is on. Skipping QR code.")
