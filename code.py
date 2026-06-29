@@ -225,7 +225,7 @@ def main():
         print("No events are currently in progress.")
         state = "Available"
 
-        
+
         # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
         now = datetime.now()
         if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
@@ -290,6 +290,10 @@ def main():
         schedule_message = "Schedule\na Meeting:"
         draw.text((display.width - ( 2 * overlay.width) - ( padding // 2), display.height - padding - (overlay.height // 2) - 8), schedule_message, font=small_font, fill=BLACK)
 
+    with open("last_download", "r") as f:
+        timestamp = f.read()
+    last_updated = 'Calendar Refreshed: ' + timestamp
+    draw.text((display.width - 40, display.height - 12), last_updated, font=x_small_font, fill=BLACK)
 
     # Finally, send the image to the display hardware to be shown
     display.image(image)
