@@ -240,7 +240,7 @@ def main():
         case "Working Remotely":
             display_message(status_message="Working Remotely", sub_message="Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
         case "Out of Office":
-            display_message(status_message="Out of Office", sub_message="I may have limited access to email, but I will respond as soon as I can.", box_color=BLACK, text_color=WHITE)
+            display_message(status_message="Out of Office", sub_message="Limited access to email, but I will respond as soon as I can.", box_color=BLACK, text_color=WHITE)
         case "Here, But Busy":
             display_message(status_message="Here, But Busy", sub_message="Please knock only if it's urgent.", box_color=BLACK, text_color=WHITE)
         case "Office Hours":
