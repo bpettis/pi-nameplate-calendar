@@ -123,7 +123,7 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 
     # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
     draw.rectangle((x + padding, display.height - 100, x + 175, display.height - 10), outline=BLACK, fill=WHITE)
-    draw.text((x + padding + 5, display.height - 100), "Next Availability:", font=small_font, fill=BLACK)
+    draw.text((x + padding + 5, display.height - 100), "Upcoming Availability:", font=small_font, fill=BLACK)
 
     # break if the next_meeting_time array is empty
     if len(next_meeting_time) == 0:
@@ -135,6 +135,8 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
         draw.text((x + padding + 5, display.height - 80 + (i * 12)), next_meeting_time[i][0].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
         if i >= 3:
             break
+
+    draw.text((x + padding + 5, display.height - 68), "Use the QR code to\nreserve a\nmeeting time.", font=small_font, fill=BLACK)
 
 
 def main():
