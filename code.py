@@ -132,11 +132,9 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
         return
 
     for i in range(len(next_meeting_time)):
-        draw.text((x + padding + 5, display.height - 80 + (i * 12)), next_meeting_time[i][0].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 80 + (i * 14)), next_meeting_time[i][0].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
         if i >= 3:
             break
-
-    draw.text((x + padding + 5, display.height - 68), "Use the QR code to\nreserve a\nmeeting time.", font=small_font, fill=BLACK)
 
 
 def main():
@@ -174,21 +172,56 @@ def main():
 
     '''
 
-
+    state = ""
     if current_events:
         print("Current events:\n")
         for event, start, end in current_events:
             print(event)
             print("Summary:", event.get("summary"))
             print("Location:", event.get("location"))
+            print("Description:", event.get("description"))
             print("-" * 40)
+
+            # Check the event description for a custom string to specify the state to display on the nameplate. If found, use that string as the state.
+            # For example ## NAMEPLATE_STATE: Available ## would set the state to "Available" and display the appropriate message and colors on the nameplate.
+            description = event.get("description", "").lower()
+            if "## NAMEPLATE_STATE:" in description:
+                state_line = [line for line in description.splitlines() if "## NAMEPLATE_STATE:" in line][0]
+                state = state_line.split("## NAMEPLATE_STATE:") [1].strip()
+            else:
+                state = "In a Meeting"
+
+            # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "In a Meeting"
     else:
         print("No events are currently in progress.")
         # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
-        display_message(status_message="Available", sub_message="Feel free to stop by and chat!", box_color=BLACK, text_color=WHITE)
+        state = "Available"
+
+    match state:
+        case "Available":
+            display_message(status_message="Available", sub_message="Feel free to stop by and chat!", box_color=BLACK, text_color=WHITE)
+        case "In a Meeting":
+            display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=RED, text_color=BLACK)
+        case "Do Not Disturb":
+            display_message(status_message="Do Not Disturb", sub_message="I will yap and yap if given the opportunity...", box_color=RED, text_color=WHITE)
+        case "Working Remotely":
+            display_message(status_message="Working Remotely", sub_message="Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
+        case "Out of Office":
+            display_message(status_message="Out of Office", sub_message="I may have limited access to email, but I will respond as soon as I can.", box_color=BLACK, text_color=WHITE)
+        case "Here, But Busy":
+            display_message(status_message="Here, But Busy", sub_message="Please knock only if it's urgent.", box_color=RED, text_color=WHITE)
+        case "Office Hours":
+            display_message(status_message="Office Hours", sub_message="Come on in! I'm here to help.", box_color=BLACK, text_color=WHITE)
+        case "Somewhere Else":
+            display_message(status_message="Somewhere Else", sub_message="I'm not in my office right now. Please email me if you need anything.", box_color=BLACK, text_color=RED)
+        case "Teaching a Class":
+            display_message(status_message="Teaching a Class", sub_message="I'm not here right now.", box_color=BLACK, text_color=RED)
+        case "On Vacation":
+            display_message(status_message="On Vacation", sub_message="I am happy to meet when I return. Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
+        default:
+            display_message(status_message="???", sub_message="I've lost my marbles (and may or may not be around)", box_color=BLACK, text_color=WHITE)
 
 
-    display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
 
     if DEBUG:
         print("Debug mode is on. Skipping QR code.")
