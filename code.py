@@ -175,9 +175,10 @@ def main():
         ip = os.popen('hostname -I').read()[:-1]
 
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 0), uptime, font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'WiFi: {ssid}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'IP: {ip}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 36), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'Last Run: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'WiFi: {ssid}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 36), f'IP: {ip}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 48), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
 
     else:
         # Add an image for scheduling
