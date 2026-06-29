@@ -273,7 +273,8 @@ def main():
     else:
         print("No suitable free windows found.")
 
+    return current_events, free_windows
 
 
 if __name__ == "__main__":
-    main()
+    result = main()

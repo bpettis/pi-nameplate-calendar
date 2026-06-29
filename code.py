@@ -16,7 +16,7 @@ from adafruit_epd.epd import Adafruit_EPD
 from datetime import datetime
 from dotenv import load_dotenv
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
-
+from current_event import main as get_calendar_data
 
 print("Finished Imports")
 
@@ -139,11 +139,17 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
 
 def main():
 
+    # Get calendar data
+    try:
+        current_events, free_windows = get_calendar_data()
+    except Exception as e:
+        print(f"Failed to get calendar data: {e}")
+        current_events = []
+        free_windows = []
+
     # Manually call the functions to draw the different screens
 
-    upcoming_meetings = []
-    upcoming_meetings = [datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0), datetime(2026, 1, 1, 14, 0, 0), datetime(2026, 1, 1, 15, 0, 0)]
-
+    upcoming_meetings = free_windows
     print(f"Battery OK: {lbo.value}")
     status_bar(battery_ok=lbo.value, next_meeting_time=upcoming_meetings)
 
@@ -165,6 +171,17 @@ def main():
     On Vacation: Black Box, White Text, I expect to return on [return date]. Please email me if you need anything.
 
     '''
+
+    if current_events:
+        print("Current events:\n")
+        for event, start, end in current_events:
+            print("Summary:", event.get("summary"))
+            print("Start:", start)
+            print("End:", end)
+            print("Location:", event.get("location"))
+            print("-" * 40)
+    else:
+        print("No events are currently in progress.")
 
     display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
 
