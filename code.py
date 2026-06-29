@@ -104,9 +104,9 @@ def display_message(status_message = "[MESSAGE HERE]", sub_message = "[SUB MESSA
     # Add a small horizontal line underneath all that
     draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
 
-def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 0, 0)]):
+def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0))]):
     # battery_ok is a boolean representing whether the battery level is ok -- the lbo pin gets pulled low when the chip detects a low voltage, which we'll read as a low battery
-    # next_meeting_time is an array of datetime objects representing the time of the next free block
+    # next_meeting_time is an array of tuples of datetime objects representing the start and end time of the next free block
 
     # Test displaying some small status indicators in the top 10 pixels of the display
 
@@ -132,7 +132,7 @@ def status_bar(battery_ok = True, next_meeting_time = [datetime(2026, 1, 1, 12, 
         return
 
     for i in range(len(next_meeting_time)):
-        draw.text((x + padding + 5, display.height - 80 + (i * 12)), next_meeting_time[i].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
+        draw.text((x + padding + 5, display.height - 80 + (i * 12)), next_meeting_time[i][0].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
         if i >= 3:
             break
 
@@ -172,16 +172,7 @@ def main():
 
     '''
 
-    if current_events:
-        print("Current events:\n")
-        for event, start, end in current_events:
-            print("Summary:", event.get("summary"))
-            print("Start:", start)
-            print("End:", end)
-            print("Location:", event.get("location"))
-            print("-" * 40)
-    else:
-        print("No events are currently in progress.")
+
 
     display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=BLACK, text_color=RED)
 
