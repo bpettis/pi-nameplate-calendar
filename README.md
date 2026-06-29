@@ -16,3 +16,24 @@ If I leave my door open all the time, I _will_ get distracted and start yapping 
 - Raspberry Pi Zero W
 - 3.7" 416x240 Tri-Color Red / Black / White eInk - Bare Display - UC8253 Chipset (https://www.adafruit.com/product/6394)
 - Adafruit E-Ink Bonnet for Raspberry Pi - 24-pin E-Paper Displays (https://www.adafruit.com/product/6418)
+
+## Setup
+
+[lmao I will write this eventually... maybe]
+
+### Environment
+
+There are a handful of environment variables that you can set. I recommend making a `.env` file and setting them there.
+
+
+| Variable Name | Required? | Description |
+| ------------- | ------------- | ------------- |
+| DEBUG  | no | Display useful information for debugging and setup instead of QR code | 
+| CALENDAR_URL  | yes | tell the script where it can get the ICS file from |
+
+
+#### Example .env file
+
+```
+DEBUG=True
+```
