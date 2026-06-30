@@ -135,7 +135,7 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 
     for i in range(len(next_meeting_time)):
         draw.text((x + padding + 5, display.height - 80 + (i * 14)), next_meeting_time[i][0].strftime("%-I:%M %p - %a %b %-d"), font=small_font, fill=BLACK)
-        if i >= 3:
+        if i >= 4:
             break
 
 
