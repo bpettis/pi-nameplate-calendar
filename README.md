@@ -54,7 +54,7 @@ Or within Python:
 
 ```python
 import time
-power_led = open('/sys/class/leds/ACT/brightness', 'w', buffering=0)
+power_led = open('/sys/class/leds/ACT/brightness', 'w')
 while True:
     power_led.write('1')
     time.sleep(0.5)
