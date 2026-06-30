@@ -45,10 +45,11 @@ dc = digitalio.DigitalInOut(board.D22)
 srcs = None
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
-
 lbo = digitalio.DigitalInOut(board.D4)
 
-
+# See https://www.programmersought.com/article/37964051706/
+# We can fuck around with the onboard power LED by writing 0 or 1 to this 'file'
+power_led = open('/sys/class/leds/ACT/brightness', 'w', buffering=0)
 
 display = Adafruit_UC8253_Tricolor(240, 416,
     spi,
@@ -309,5 +310,7 @@ def main():
 
 if __name__ == '__main__':
     print("Starting main()...")
+    power_led.write('1')
     main()
+    power_led.write('0')
     print("Done!")
