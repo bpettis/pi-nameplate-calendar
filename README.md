@@ -31,6 +31,36 @@ Install some stuff:
 - requests
 - tzlocal
 
+
+### Power LEDs
+
+For power-saving purposes, I disable the normal activity LED on the Pi Zero board:
+
+`sudo nano /boot/firmware/config.txt`
+
+and then add this line:
+
+`dtparam=act_led_trigger=none`
+
+The idea is to disable all the normal triggers for the LED, and then only toggle in manually within my own scripts:
+
+`echo 0 | sudo tee /sys/class/leds/ACT/brightness`
+
+`echo 1 | sudo tee /sys/class/leds/ACT/brightness`
+
+
+Or within Python:
+
+
+```python
+import time
+power_led = open('/sys/class/leds/ACT/brightness', 'w', buffering=0)
+while True:
+    power_led.write('1')
+    time.sleep(0.5)
+    power_led.write('0')
+```
+
 ### Environment
 
 There are a handful of environment variables that you can set. I recommend making a `.env` file and setting them there.
