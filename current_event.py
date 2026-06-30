@@ -15,7 +15,7 @@ local_tz = tzlocal.get_localzone()
 
 
 def find_free_windows(cal, now, days_ahead=14, min_duration=timedelta(minutes=55)):
-    """Find next 3 free windows within business hours."""
+    """Find next 10 free windows within business hours."""
     
     business_start = BUSINESS_START
     business_end = BUSINESS_END
@@ -40,7 +40,7 @@ def find_free_windows(cal, now, days_ahead=14, min_duration=timedelta(minutes=55
 
     current_day = now.date()
 
-    while len(free_windows) < 3 and current_day <= window_end.date():
+    while len(free_windows) < 10 and current_day <= window_end.date():
         day_start = datetime.combine(current_day, business_start, tzinfo=local_tz)
         day_end = datetime.combine(current_day, business_end, tzinfo=local_tz)
 
