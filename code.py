@@ -273,12 +273,14 @@ def main():
             timestamp = f.read()
 
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 0), uptime, font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'Last Run: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'WiFi: {ssid}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 36), f'MAC: {mac}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 48), f'IP: {ip}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 60), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
-        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 72), f'Calendar Refreshed: {timestamp}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'Last Run:', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 24), f'    {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 26), f'WiFi: {ssid}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 48), f'MAC: {mac}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 60), f'IP: {ip}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 72), f'Battery OK: {lbo.value}', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 84), f'Calendar Refreshed:', font=small_font, fill=BLACK)
+        draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 96), f'    {timestamp}', font=small_font, fill=BLACK)
 
     else:
         # Add an image for scheduling
