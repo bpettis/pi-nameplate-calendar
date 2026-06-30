@@ -51,6 +51,32 @@ The idea is to disable all the normal triggers for the LED, and then only toggle
 
 Or within Python:
 
+### More Power Reduction
+
+
+Deactivate HDMI:
+
+`sudo tvservice -o`
+
+Reactivate with `sudo tvservice -p`
+
+
+Deactivate Bluetooth by editing `/boot/firmware/config.txt` and adding:
+
+```
+dtoverlay=disablt-bt
+```
+
+
+Lower the clock by editing `/boot/firmware/config.txt` and adding:
+
+```
+arm_freq=1000
+arm_freq_min=400
+```
+
+(max 1GHz, min 400MHz)
+
 
 ```python
 import time
