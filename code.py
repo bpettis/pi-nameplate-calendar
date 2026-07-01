@@ -195,14 +195,18 @@ def main():
             title = event.get("summary", "").lower()
             if title.startswith("writing time:"):
                 state = "Do Not Disturb"
-            elif title.startswith("office hours"):
-                state = "Office Hours"
             elif title.startswith("vacation"):
                 state = "On Vacation"
-            elif title.startswith("rhcs"):
-                state = "Teaching a Class"
+            elif title.startswith("holiday"):
+                state = "Out of Office"
             elif title.startswith("working remotely"):
                 state = "Working Remotely"
+            elif title.startswith("indexing time"):
+                state = "Here, But Busy"
+            elif title.startswith("office hours"):
+                state = "Office Hours"
+            elif title.startswith("rhcs"):
+                state = "Teaching a Class"
 
 
             # Check the event location to see if it contains a matching string that should always be matched to a specific state
