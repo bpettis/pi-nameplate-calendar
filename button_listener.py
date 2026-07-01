@@ -1,6 +1,7 @@
 from gpiozero import Button
 import time
 from code import main as update_display
+from pathlib import Path
 from download_calendar import main as download_calendar
 
 button_5 = Button(5)
@@ -12,11 +13,25 @@ while True:
         with open('/sys/class/leds/ACT/brightness', 'w') as f:
             f.write('1')
         time.sleep(0.5)  # Debounce delay
+        
+        # Check if manual_dnd file exists
+        manual_dnd_path = Path("manual_dnd_mode")
+        if manual_dnd_path.exists():
+            print("Manual DND file exists. Removing it...")
+            manual_dnd_path.unlink()  # Remove the file
+            update_display()
+        else:
+            print("Manual DND file does not exist. Creating it...")
+            manual_dnd_path.touch()  # Create the file
+            update_display()
+        
         with open('/sys/class/leds/ACT/brightness', 'w') as f:
             f.write('0')
+        print("Finished processing")
 
     if button_6.is_pressed:
         print("Button 6 is pressed")
+        print("Downloading calendar and updating display...")
         with open('/sys/class/leds/ACT/brightness', 'w') as f:
             f.write('1')
         time.sleep(0.5)  # Debounce delay
@@ -24,3 +39,4 @@ while True:
         update_display()
         with open('/sys/class/leds/ACT/brightness', 'w') as f:
             f.write('0')
+        print("Finished processing")

@@ -16,6 +16,7 @@ from adafruit_epd.epd import Adafruit_EPD
 from datetime import datetime
 from dotenv import load_dotenv
 from adafruit_epd.uc8253 import Adafruit_UC8253_Tricolor
+from pathlib import Path
 from current_event import main as get_calendar_data
 
 print("Finished Imports")
@@ -230,6 +231,7 @@ def main():
         print("No events are currently in progress.")
         state = "Available"
 
+    
 
         # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
         now = datetime.now()
@@ -238,7 +240,9 @@ def main():
         # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
         
 
-
+    # Check if the manual_dnd_mode file exists, and if so, display "Do Not Disturb" regardless of the calendar data.
+    if Path("manual_dnd_mode").exists():
+        state = "Do Not Disturb"
 
     match state:
         case "Available":
