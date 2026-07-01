@@ -236,25 +236,25 @@ def main():
         case "Available":
             display_message(status_message="Available", sub_message="Feel free to stop by and chat!", box_color=BLACK, text_color=WHITE)
         case "In a Meeting":
-            display_message(status_message="In a Meeting", sub_message="Please do not disturb me unless it's an emergency.", box_color=RED, text_color=BLACK)
+            display_message(status_message="In a Meeting", sub_message="Please do not disturb unless it's an emergency.", box_color=RED, text_color=BLACK)
         case "Do Not Disturb":
-            display_message(status_message="Do Not Disturb", sub_message="I will yap and yap if given the opportunity...", box_color=RED, text_color=WHITE)
+            display_message(status_message="Do Not Disturb", sub_message="Please do not disturb unless it's an emergency.", box_color=RED, text_color=WHITE)
         case "Working Remotely":
             display_message(status_message="Working Remotely", sub_message="Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
         case "Out of Office":
             display_message(status_message="Out of Office", sub_message="Limited access to email, but I will respond as soon as I can.", box_color=BLACK, text_color=WHITE)
         case "Here, But Busy":
-            display_message(status_message="Here, But Busy", sub_message="Please knock only if it's urgent.", box_color=BLACK, text_color=WHITE)
+            display_message(status_message="Here, But Busy", sub_message="Please knock if you need something.", box_color=BLACK, text_color=WHITE)
         case "Office Hours":
             display_message(status_message="Office Hours", sub_message="Come on in! I'm here to help.", box_color=BLACK, text_color=WHITE)
         case "Somewhere Else":
-            display_message(status_message="Somewhere Else", sub_message="I'm not in my office right now. Please email me if you need anything.", box_color=BLACK, text_color=RED)
+            display_message(status_message="Somewhere Else", sub_message="I'm not in my office right now.", box_color=BLACK, text_color=RED)
         case "Teaching a Class":
-            display_message(status_message="Teaching a Class", sub_message="I'm not here right now.", box_color=BLACK, text_color=RED)
+            display_message(status_message="Teaching a Class", sub_message="I'll be back later!", box_color=BLACK, text_color=RED)
         case "On Vacation":
             display_message(status_message="On Vacation", sub_message="I am happy to meet when I return. Please email me if you need anything.", box_color=BLACK, text_color=WHITE)
         case _:
-            display_message(status_message="???", sub_message="I've lost my marbles (and may or may not be around)", box_color=BLACK, text_color=WHITE)
+            display_message(status_message="???", sub_message="I've lost my marbles (and couldn't load the calendar data)", box_color=BLACK, text_color=WHITE)
 
     print(f'State: {state}')
 
