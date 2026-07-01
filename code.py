@@ -316,7 +316,7 @@ if __name__ == '__main__':
     print("Starting main()...")
     with open('/sys/class/leds/ACT/brightness', 'w') as f:
         f.write('1')
-    main()
+    result = main()
     with open('/sys/class/leds/ACT/brightness', 'w') as f:
         f.write('0')
     print("Done!")

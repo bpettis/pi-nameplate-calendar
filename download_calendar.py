@@ -48,4 +48,4 @@ def main():
         print(f"Removed backup {FILENAME}_backup.ics")
 
 if __name__ == "__main__":
-    main()
+    result = main()
