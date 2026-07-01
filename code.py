@@ -183,6 +183,10 @@ def main():
             print("Description:", event.get("description"))
             print("-" * 40)
 
+
+            # Default state is "In a Meeting" for if we can't find any other information in the event data to determine the state.
+            state = "In a Meeting"
+
             # Check the event title to see if it contains a matching string that should always be matched to a specific state
             # For example, anything that starts with "Writing Time:" should always be matched to "Do Not Disturb" regardless of the other data in the event.
             # Or anything that is labelled as "Office Hours" should always be matched to "Office Hours" regardless of the other data in the event.
