@@ -1,20 +1,21 @@
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+from gpiozero import Button
 
-GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 5 to be an input pin and set initial value to be pulled low (off)
-GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 5 to be an input pin and set initial value to be pulled low (off)
+button_5 = Button(5)
+button_6 = Button(6)
 
-# Run forever:
 while True:
-    if GPIO.input(5) == GPIO.HIGH:
-        print("Button 5 was pushed!")
+    if button_5.is_pressed:
+        print("Button 5 is pressed")
+        with open('/sys/class/leds/ACT/brightness', 'w') as f:
+            f.write('1')
+    else:
+        with open('/sys/class/leds/ACT/brightness', 'w') as f:
+            f.write('0')
 
-    if GPIO.input(6) == GPIO.HIGH:
-        print("Button 6 was pushed!")
-
-# with open('/sys/class/leds/ACT/brightness', 'w') as f:
-#     f.write('1')
-    
-# with open('/sys/class/leds/ACT/brightness', 'w') as f:
-#     f.write('0')
+    if button_6.is_pressed:
+        print("Button 6 is pressed")
+        with open('/sys/class/leds/ACT/brightness', 'w') as f:
+            f.write('1')
+    else:
+        with open('/sys/class/leds/ACT/brightness', 'w') as f:
+            f.write('0')
