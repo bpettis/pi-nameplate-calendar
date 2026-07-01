@@ -138,7 +138,7 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 
 
 def main():
-
+    print("Beginning to get calendar data and update display...")
     # Get calendar data
     try:
         current_events, free_windows = get_calendar_data()

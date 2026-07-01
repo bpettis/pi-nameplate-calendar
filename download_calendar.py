@@ -8,6 +8,7 @@ CALENDAR_URL = os.getenv("CALENDAR_URL", None)
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "t")
 
 def main():
+    print("Downloading new calendar data...")
     # Backup existing file
     if os.path.exists(FILENAME):
         os.rename(FILENAME, f"{FILENAME}_backup.ics")
