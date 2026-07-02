@@ -229,6 +229,10 @@ def main():
                     state = "Office Hours"
                 elif title.startswith("rhcs"):
                     state = "Teaching a Class"
+                elif title.startswith("commute time"):
+                    state = "Somewhere Else"
+                elif title.startswith("admin"):
+                    state = "Here, But Busy"
 
 
                 # Check the event location to see if it contains a matching string that should always be matched to a specific state
