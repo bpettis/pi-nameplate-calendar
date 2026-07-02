@@ -176,74 +176,78 @@ def main():
     state = ""
 
 
-    if current_events:
-        print("Current events:\n")
-        for event, start, end in current_events:
-            print(event)
-            print("Summary:", event.get("summary"))
-            print("Location:", event.get("location"))
-            print("Description:", event.get("description"))
-            print("-" * 40)
-
-
-            # Default state is "In a Meeting" for if we can't find any other information in the event data to determine the state.
-            state = "In a Meeting"
-
-            # Check the event title to see if it contains a matching string that should always be matched to a specific state
-            # For example, anything that starts with "Writing Time:" should always be matched to "Do Not Disturb" regardless of the other data in the event.
-            # Or anything that is labelled as "Office Hours" should always be matched to "Office Hours" regardless of the other data in the event.
-            # Anything labelled as "Vacation" should always be matched to "On Vacation" regardless of the other data in the event.
-            # Anything labelled with "RHCS:" should match to "Teaching a Class" regardless of the other data in the event.
-            title = event.get("summary", "").lower()
-            if title.startswith("writing time:"):
-                state = "Do Not Disturb"
-            elif title.startswith("vacation"):
-                state = "On Vacation"
-            elif title.startswith("holiday"):
-                state = "Out of Office"
-            elif title.startswith("working remotely"):
-                state = "Working Remotely"
-            elif title.startswith("indexing time"):
-                state = "Here, But Busy"
-            elif title.startswith("office hours"):
-                state = "Office Hours"
-            elif title.startswith("rhcs"):
-                state = "Teaching a Class"
-
-
-            # Check the event location to see if it contains a matching string that should always be matched to a specific state
-            # For example, if there is an address in the location field that is not "my office," "ben's office", or "Weinstein 402G" or "Jepson 221", then we should display "Somewhere Else" regardless of the other data in the event.
-            location = event.get("location", "").lower()
-            if location and "my office" not in location and "ben's office" not in location and "weinstein 402g" not in location and "jepson 221" not in location:
-                state = "Somewhere Else"
-
-            # Check the event description for a custom string to specify the state to display on the nameplate. If found, use that string as the state.
-            # This should be the top priority for determining the state, as it allows for manual override of the calendar data. The format should be "## NAMEPLATE_STATE: [STATE] ##" where [STATE] is one of the states listed above.
-            # For example ## NAMEPLATE_STATE: Available ## would set the state to "Available" and display the appropriate message and colors on the nameplate.
-            description = event.get("description", "").lower()
-            if "## NAMEPLATE_STATE:" in description:
-                state_line = [line for line in description.splitlines() if "## NAMEPLATE_STATE:" in line][0]
-                state = state_line.split("## NAMEPLATE_STATE:") [1].strip()
-
-            
-
-            # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "In a Meeting"
-    else:
-        print("No events are currently in progress.")
-        state = "Available"
-
-    
-
-        # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
-        now = datetime.now()
-        if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
-            state = "Out of Office"
-        # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
-        
-
     # Check if the manual_dnd_mode file exists, and if so, display "Do Not Disturb" regardless of the calendar data.
     if Path("manual_dnd_mode").exists():
         state = "Do Not Disturb"
+    else:
+        # Do the rest of our checking
+
+        if current_events:
+            print("Current events:\n")
+            for event, start, end in current_events:
+                print(event)
+                print("Summary:", event.get("summary"))
+                print("Location:", event.get("location"))
+                print("Description:", event.get("description"))
+                print("-" * 40)
+
+
+                # Default state is "In a Meeting" for if we can't find any other information in the event data to determine the state.
+                state = "In a Meeting"
+
+                # Check the event title to see if it contains a matching string that should always be matched to a specific state
+                # For example, anything that starts with "Writing Time:" should always be matched to "Do Not Disturb" regardless of the other data in the event.
+                # Or anything that is labelled as "Office Hours" should always be matched to "Office Hours" regardless of the other data in the event.
+                # Anything labelled as "Vacation" should always be matched to "On Vacation" regardless of the other data in the event.
+                # Anything labelled with "RHCS:" should match to "Teaching a Class" regardless of the other data in the event.
+                title = event.get("summary", "").lower()
+                if title.startswith("writing time:"):
+                    state = "Do Not Disturb"
+                elif title.startswith("vacation"):
+                    state = "On Vacation"
+                elif title.startswith("holiday"):
+                    state = "Out of Office"
+                elif title.startswith("working remotely"):
+                    state = "Working Remotely"
+                elif title.startswith("indexing time"):
+                    state = "Here, But Busy"
+                elif title.startswith("office hours"):
+                    state = "Office Hours"
+                elif title.startswith("rhcs"):
+                    state = "Teaching a Class"
+
+
+                # Check the event location to see if it contains a matching string that should always be matched to a specific state
+                # For example, if there is an address in the location field that is not "my office," "ben's office", or "Weinstein 402G" or "Jepson 221", then we should display "Somewhere Else" regardless of the other data in the event.
+                location = event.get("location", "").lower()
+                if location and "my office" not in location and "ben's office" not in location and "weinstein 402g" not in location and "jepson 221" not in location:
+                    state = "Somewhere Else"
+
+                # Check the event description for a custom string to specify the state to display on the nameplate. If found, use that string as the state.
+                # This should be the top priority for determining the state, as it allows for manual override of the calendar data. The format should be "## NAMEPLATE_STATE: [STATE] ##" where [STATE] is one of the states listed above.
+                # For example ## NAMEPLATE_STATE: Available ## would set the state to "Available" and display the appropriate message and colors on the nameplate.
+                description = event.get("description", "").lower()
+                if "## NAMEPLATE_STATE:" in description:
+                    state_line = [line for line in description.splitlines() if "## NAMEPLATE_STATE:" in line][0]
+                    state = state_line.split("## NAMEPLATE_STATE:") [1].strip()
+
+                
+
+                # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "In a Meeting"
+        else:
+            print("No events are currently in progress.")
+            state = "Available"
+
+        
+
+            # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
+            now = datetime.now()
+            if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
+                state = "Out of Office"
+            # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
+            
+
+
 
     match state:
         case "Available":
