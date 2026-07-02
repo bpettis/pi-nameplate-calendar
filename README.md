@@ -22,14 +22,28 @@ If I leave my door open all the time, I _will_ get distracted and start yapping 
 [lmao I will write this eventually... maybe]
 
 Follow Adafruit's instructions for getting stuff setup.
+https://learn.adafruit.com/adafruit-e-ink-bonnet-for-raspberry-pi?view=all
 
+`sudo apt-get install fonts-dejavu`
+
+`pip install adafruit-circuitpython-epd`
+
+
+Use a venv, but make sure that it can access system packages:
+```
+python3 -m venv --system-site-packages .venv
+```
 
 Install some stuff: 
+
+`pip install -r requirements.txt`
 
 - python-dotenv
 - icalendar (https://icalendar.readthedocs.io/en/latest/how-to/install.html)
 - requests
 - tzlocal
+- gpiozero
+- Pillow
 
 
 ### Power LEDs
