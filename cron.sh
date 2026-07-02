@@ -6,4 +6,4 @@
 
 source /home/bpettis/nameplate/.venv/bin/activate
 cd /home/bpettis/nameplate
-sudo -E env PATH=$PATH python3 code.py
+sudo -E env PATH=$PATH python3 display_update.py

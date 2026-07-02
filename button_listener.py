@@ -1,6 +1,6 @@
 from gpiozero import Button
 import time
-from code import main as update_display
+from display_update import main as update_display
 from pathlib import Path
 from download_calendar import main as download_calendar
 
