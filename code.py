@@ -140,6 +140,9 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 def main():
     print("Beginning to get calendar data and update display...")
     
+    # Clear the display:
+    draw.rectangle((0, 0, width, height), fill=WHITE)
+    
     # Get calendar data
     try:
         current_events, free_windows = get_calendar_data()
@@ -179,6 +182,12 @@ def main():
     # Check if the manual_dnd_mode file exists, and if so, display "Do Not Disturb" regardless of the calendar data.
     if Path("manual_dnd_mode").exists():
         state = "Do Not Disturb"
+        
+        # Add a small icon to the top middle to indicate that the manual DND mode is active
+        dnd_icon = Image.open("dnd.png")
+        dnd_icon = dnd_icon.resize((20, 20), Image.BICUBIC)
+        image.paste(dnd_icon, (display.width // 2 - 10, 1))
+        
     else:
         # Do the rest of our checking
 
