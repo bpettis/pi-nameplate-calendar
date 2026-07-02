@@ -143,6 +143,11 @@ def main():
     # Clear the display:
     draw.rectangle((0, 0, width, height), fill=WHITE)
     
+    # Display loading message
+    draw.text((x + (shape_width // 2) - (font.getbbox("Loading...")[2] // 2), top + (50 // 2) - (font.getbbox("Loading...")[3] // 2)), "Loading...", font=font, fill=BLACK)
+    display.image(image)
+    display.display()
+    
     # Get calendar data
     try:
         current_events, free_windows = get_calendar_data()
