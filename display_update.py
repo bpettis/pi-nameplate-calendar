@@ -297,8 +297,11 @@ def main():
         mac = os.popen('cat /sys/class/net/wlan0/address').read()[:-1]
 
         timestamp = 'unknown'
-        with open("last_download", "r") as f:
-            timestamp = f.read()
+        try:
+            with open("last_download", "r") as f:
+                timestamp = f.read()
+        except FileNotFoundError:
+            print("last_download file not found. Using 'unknown' as timestamp.")
 
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 0), uptime, font=small_font, fill=BLACK)
         draw.text((display.width // 2 - ( padding // 2), display.height // 2 + 12), f'Last Run:', font=small_font, fill=BLACK)
