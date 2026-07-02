@@ -190,7 +190,7 @@ def main():
         
         # Add a small icon to the top middle to indicate that the manual DND mode is active
         dnd_icon = Image.open("dnd.png")
-        dnd_icon = dnd_icon.resize((20, 20), Image.BICUBIC)
+        dnd_icon = dnd_icon.resize((16, 16), Image.BICUBIC)
         image.paste(dnd_icon, (display.width // 2 - 10, 1))
         
     else:
