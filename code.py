@@ -141,8 +141,6 @@ def main():
     print("Beginning to get calendar data and update display...")
     
     display.fill(Adafruit_EPD.WHITE)
-    draw = ImageDraw.Draw(image)
-    draw.text((width // 2, height // 2), "Loading...", font=med_font, fill=BLACK)
     display.display()
     
     
