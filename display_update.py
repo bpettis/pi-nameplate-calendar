@@ -120,7 +120,7 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 
     # Print Date in the top right corner of the display
     now = datetime.now()
-    date_string = now.strftime("%A, %B %-d, %Y")
+    date_string = now.strftime("as of %-I:%M%p %A, %B %-d, %Y")
     draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
 
     # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
