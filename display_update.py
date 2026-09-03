@@ -105,6 +105,10 @@ def display_message(status_message = "[MESSAGE HERE]", sub_message = "[SUB MESSA
 
     # Add a small horizontal line underneath all that
     draw.line((x, top + 60 + small_font.getbbox(sub_message)[3], x + shape_width, top + 60 + small_font.getbbox(sub_message)[3]), fill=BLACK, width=2)
+    
+    # Add some text underneath the line with name and email
+    name_line = "Dr. Ben Pettis | ben.pettis@richmond.edu"
+    draw.text((x + (shape_width // 2) - (small_font.getbbox(name_line)[2] // 2), top + 60 + small_font.getbbox(sub_message)[3] + padding), name_line, font=small_font, fill=BLACK)
 
 def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12, 0, 0), datetime(2026, 1, 1, 13, 0, 0))]):
     # battery_ok is a boolean representing whether the battery level is ok -- the lbo pin gets pulled low when the chip detects a low voltage, which we'll read as a low battery
@@ -261,8 +265,9 @@ def main():
         
 
             # Check if we are outside of business hours (default 9:30 AM to 4:30 PM) and if so, display "Out of Office" regardless of the calendar data.
+            # OOO should also be displayed on weekends (Saturday and Sunday) regardless of the calendar data.
             now = datetime.now()
-            if now.time() < BUSINESS_START or now.time() > BUSINESS_END:
+            if now.time() < BUSINESS_START or now.time() > BUSINESS_END or now.weekday() > 4  :
                 state = "Out of Office"
             # TO-DO: Check if I am working in person or remotely, and display the appropriate message. For now, just display "Available"
             
