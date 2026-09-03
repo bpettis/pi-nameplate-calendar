@@ -52,6 +52,11 @@ def find_free_windows(cal, now, days_ahead=14, min_duration=timedelta(minutes=55
         if day_start >= day_end:
             current_day += timedelta(days=1)
             continue
+        
+        # Skip if the day is a weekend (Saturday/Sunday are days 5 and 6)
+        if current_day.weekday() >= 5:
+            current_day += timedelta(days=1)
+            continue
 
         # 3. Filter busy periods for this day
         day_busy = []
