@@ -120,7 +120,7 @@ def status_bar(battery_ok = True, next_meeting_time = [(datetime(2026, 1, 1, 12,
 
     # Print Date in the top right corner of the display
     now = datetime.now()
-    date_string = now.strftime("as of %-I:%M%p %A, %B %-d, %Y")
+    date_string = now.strftime("As of %-I:%M%p %A, %B %-d, %Y")
     draw.text((display.width - x_small_font.getbbox(date_string)[2] - 1, 1), date_string, font=x_small_font, fill=BLACK)
 
     # Bottom left corner show a list of upcoming events in a box with a title and a time for the next availability
@@ -190,10 +190,10 @@ def main():
     if Path("manual_dnd_mode").exists():
         state = "Do Not Disturb"
         
-        # Add a small icon to the top middle to indicate that the manual DND mode is active
+        # Add a small icon to the top (but not overlapping the battery icon)
         dnd_icon = Image.open("dnd.png")
         dnd_icon = dnd_icon.resize((16, 16), Image.BICUBIC)
-        image.paste(dnd_icon, (display.width // 2 - 10, 1))
+        image.paste(dnd_icon, (25, 1))
         
     else:
         # Do the rest of our checking
