@@ -47,6 +47,8 @@ srcs = None
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
 lbo = digitalio.DigitalInOut(board.D4)
+lbo.direction = digitalio.Direction.INPUT
+lbo.pull = digitalio.Pull.UP
 
 display = Adafruit_UC8253_Tricolor(240, 416,
     spi,
