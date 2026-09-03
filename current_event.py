@@ -102,6 +102,9 @@ def find_free_windows(cal, now, days_ahead=14, min_duration=timedelta(minutes=55
                     return free_windows
 
         current_day += timedelta(days=1)
+        
+        #6. Remove any gaps that are on a weekend (Saturday/Sunday are days 5 and 6)
+        free_windows = [window for window in free_windows if window[0].weekday() < 5]
 
     return free_windows
 

@@ -14,6 +14,7 @@ def main():
         os.rename(FILENAME, f"{FILENAME}_backup.ics")
 
     # Enable the wifi:
+    print("Run sudo rfkill unblock wifi")
     os.system("sudo rfkill unblock wifi")
 
     # Download calendar
@@ -41,7 +42,12 @@ def main():
 
     if not DEBUG:
         # Disable the wifi:
+        print("Run sudo rfkill block wifi")
         os.system("sudo rfkill block wifi")
+
+    # Temporary: Disable the wifi, but keep in debug mode so we can test how long the battery lasts:
+    print("Run sudo rfkill block wifi")
+    os.system("sudo rfkill block wifi")
 
     # Cleanup backup
     if os.path.exists(f"{FILENAME}_backup.ics"):
