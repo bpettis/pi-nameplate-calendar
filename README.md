@@ -45,6 +45,24 @@ Install some stuff:
 - gpiozero
 - Pillow
 
+## System Service to Run Button Listener on Bootup
+
+`sudo nano /etc/systemd/system/nameplate.service`
+
+```
+[Unit]
+Description=Nameplate Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/USERNAME/nameplate
+ExecStart=/home/USERNAME/nameplate/button_listener.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ### Power LEDs
 
